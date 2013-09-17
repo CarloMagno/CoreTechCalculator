@@ -1,0 +1,292 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:dvt="http://xmlns.oracle.com/dss/adf/faces">
+  <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+  <f:view>
+    <af:document id="d1">
+      <af:messages id="m1"/>
+      <af:form id="f1">
+        <af:decorativeBox theme="dark" id="db2">
+          <f:facet name="center">
+            <af:decorativeBox theme="medium" id="db1">
+              <f:facet name="center">
+                <af:panelGroupLayout layout="scroll" id="pgl1" halign="center">
+                  <af:panelGroupLayout id="pgl2">
+                    <af:image source="/oracle-logo-1.jpg" id="i1"/>
+                    <af:image source="/powered by Oracle Cloud - 01.png" id="i2"
+                              inlineStyle="width:236px; height:124px;"/>
+                  </af:panelGroupLayout>
+                  <af:panelBox text="Partitioning" id="pb1"
+                               inlineStyle="width:595px;">
+                    <f:facet name="toolbar">
+                      <af:group id="g1">
+                        <af:commandButton actionListener="#{bindings.Commit.execute}"
+                                          text="Commit"
+                                          id="cb2"/>
+                        <af:commandButton actionListener="#{backingBeanScope.ListenerBean.generateReportAndCommit}"
+                                          text="Report"
+                                          id="cb1"/>
+                      </af:group>
+                    </f:facet>
+                    <af:panelFormLayout id="pfl1" rows="3">
+                      <af:inputText value="#{bindings.GbHp.inputValue}"
+                                    label="High Performance Storage"
+                                    required="#{bindings.GbHp.hints.mandatory}"
+                                    columns="8"
+                                    maximumLength="#{bindings.GbHp.hints.precision}"
+                                    shortDesc="#{bindings.GbHp.hints.tooltip}"
+                                    id="it3" autoSubmit="true" immediate="true">
+                        <f:validator binding="#{bindings.GbHp.validator}"/>
+                        <af:convertNumber groupingUsed="false"
+                                          pattern="#{bindings.GbHp.format}"/>
+                      </af:inputText>
+                      <af:inputText value="#{bindings.PercentageHp.inputValue}"
+                                    label="%"
+                                    required="#{bindings.PercentageHp.hints.mandatory}"
+                                    columns="8"
+                                    maximumLength="#{bindings.PercentageHp.hints.precision}"
+                                    shortDesc="#{bindings.PercentageHp.hints.tooltip}"
+                                    id="it9" autoSubmit="true" immediate="true">
+                        <f:validator binding="#{bindings.PercentageHp.validator}"/>
+                        <af:convertNumber groupingUsed="false"
+                                          pattern="#{bindings.PercentageHp.format}"/>
+                      </af:inputText>
+                      <af:inputText value="#{bindings.PricePerGbGp.inputValue}"
+                                    label="Price per GB"
+                                    required="#{bindings.PricePerGbGp.hints.mandatory}"
+                                    columns="8"
+                                    maximumLength="#{bindings.PricePerGbGp.hints.precision}"
+                                    shortDesc="#{bindings.PricePerGbGp.hints.tooltip}"
+                                    id="it6" autoSubmit="true" immediate="true">
+                        <f:validator binding="#{bindings.PricePerGbGp.validator}"/>
+                        <af:convertNumber groupingUsed="false"
+                                          pattern="#{bindings.PricePerGbGp.format}"
+                                          />
+                      </af:inputText>
+                      <af:panelGroupLayout id="pgl3" layout="horizontal"
+                                           partialTriggers="it9 it3 it6">
+                        <af:outputLabel value="Total" id="ol1"/>
+                        <af:outputText value="#{bindings.GbHp.inputValue.value * bindings.PricePerGbGp.inputValue.value}" id="ot1"
+                                       partialTriggers="it6 it9 it3"/>
+                      </af:panelGroupLayout>
+                      <af:inputText value="#{bindings.GbMp.inputValue}"
+                                    label="Modular Storage"
+                                    required="#{bindings.GbMp.hints.mandatory}"
+                                    columns="8"
+                                    maximumLength="#{bindings.GbMp.hints.precision}"
+                                    shortDesc="#{bindings.GbMp.hints.tooltip}"
+                                    id="it8" autoSubmit="true" immediate="true">
+                        <f:validator binding="#{bindings.GbMp.validator}"/>
+                        <af:convertNumber groupingUsed="false"
+                                          pattern="#{bindings.GbMp.format}"/>
+                      </af:inputText>
+                      <af:inputText value="#{bindings.PercentageMp.inputValue}"
+                                    label="%"
+                                    required="#{bindings.PercentageMp.hints.mandatory}"
+                                    columns="8"
+                                    maximumLength="#{bindings.PercentageMp.hints.precision}"
+                                    shortDesc="#{bindings.PercentageMp.hints.tooltip}"
+                                    id="it2" autoSubmit="true" immediate="true">
+                        <f:validator binding="#{bindings.PercentageMp.validator}"/>
+                        <af:convertNumber groupingUsed="false"
+                                          pattern="#{bindings.PercentageMp.format}"/>
+                      </af:inputText>
+                      <af:inputText value="#{bindings.PricePerGbMp.inputValue}"
+                                    label="Price per GB"
+                                    required="#{bindings.PricePerGbMp.hints.mandatory}"
+                                    columns="8"
+                                    maximumLength="#{bindings.PricePerGbMp.hints.precision}"
+                                    shortDesc="#{bindings.PricePerGbMp.hints.tooltip}"
+                                    id="it7" autoSubmit="true" immediate="true">
+                        <f:validator binding="#{bindings.PricePerGbMp.validator}"/>
+                        <af:convertNumber groupingUsed="false"
+                                          pattern="#{bindings.PricePerGbMp.format}"/>
+                      </af:inputText>
+                      <af:panelGroupLayout id="pgl4" layout="horizontal"
+                                           partialTriggers="it8 it2 it7">
+                        <af:outputLabel value="Total" id="ol2"/>
+                        <af:outputText value="#{bindings.GbMp.inputValue.value * bindings.PricePerGbMp.inputValue.value}" id="ot2"
+                                       partialTriggers="it7 it2 it8"/>
+                      </af:panelGroupLayout>
+                      <af:inputText value="#{bindings.GbRop.inputValue}"
+                                    label="Read-Only Storage"
+                                    required="#{bindings.GbRop.hints.mandatory}"
+                                    columns="8"
+                                    maximumLength="#{bindings.GbRop.hints.precision}"
+                                    shortDesc="#{bindings.GbRop.hints.tooltip}"
+                                    id="it5" autoSubmit="true" immediate="true">
+                        <f:validator binding="#{bindings.GbRop.validator}"/>
+                        <af:convertNumber groupingUsed="false"
+                                          pattern="#{bindings.GbRop.format}"/>
+                      </af:inputText>
+                      <af:inputText value="#{bindings.PercentageRop.inputValue}"
+                                    label="%"
+                                    required="#{bindings.PercentageRop.hints.mandatory}"
+                                    columns="8"
+                                    maximumLength="#{bindings.PercentageRop.hints.precision}"
+                                    shortDesc="#{bindings.PercentageRop.hints.tooltip}"
+                                    id="it4" autoSubmit="true" immediate="true">
+                        <f:validator binding="#{bindings.PercentageRop.validator}"/>
+                        <af:convertNumber groupingUsed="false"
+                                          pattern="#{bindings.PercentageRop.format}"/>
+                      </af:inputText>
+                      <af:inputText value="#{bindings.PricePerGbRop.inputValue}"
+                                    label="Price per GB"
+                                    required="#{bindings.PricePerGbRop.hints.mandatory}"
+                                    columns="8"
+                                    maximumLength="#{bindings.PricePerGbRop.hints.precision}"
+                                    shortDesc="#{bindings.PricePerGbRop.hints.tooltip}"
+                                    id="it1" autoSubmit="true" immediate="true">
+                        <f:validator binding="#{bindings.PricePerGbRop.validator}"/>
+                        <af:convertNumber groupingUsed="false"
+                                          pattern="#{bindings.PricePerGbRop.format}"/>
+                      </af:inputText>
+                      <af:panelGroupLayout id="pgl5" layout="horizontal"
+                                           partialTriggers="it5 it4 it1">
+                        <af:outputLabel value="Total" id="ol3"/>
+                        <af:outputText value="#{bindings.GbRop.inputValue.value * bindings.PricePerGbRop.inputValue.value}" id="ot3"
+                                       partialTriggers="it1 it4 it5"/>
+                      </af:panelGroupLayout>
+                    </af:panelFormLayout>
+                    <af:separator id="s1"/>
+                    <af:panelGroupLayout id="pgl6"
+                                         layout="horizontal"
+                                         partialTriggers="it3 it9 it6 it8 it2 it7 it5 it4 it1">
+                      <af:outputLabel value="TOTAL" id="ol4"/>
+                      <af:outputText value="#{(bindings.GbHp.inputValue.value * bindings.PricePerGbGp.inputValue.value) + (bindings.GbMp.inputValue.value * bindings.PricePerGbMp.inputValue.value) + (bindings.GbRop.inputValue.value * bindings.PricePerGbRop.inputValue.value)}" id="ot4"
+                                     partialTriggers="it3 it9 it6 it8 it2 it7 it5 it4 it1"/>
+                    </af:panelGroupLayout>
+                  </af:panelBox>
+                  <af:panelBox text="Advance Compression" id="pb2"
+                               inlineStyle="width:596px;">
+                    <f:facet name="toolbar">
+                      <af:inputText value="#{bindings.Factor.inputValue}"
+                                    label="#{bindings.Factor.hints.label}"
+                                    required="#{bindings.Factor.hints.mandatory}"
+                                    columns="8"
+                                    maximumLength="#{bindings.Factor.hints.precision}"
+                                    shortDesc="#{bindings.Factor.hints.tooltip}"
+                                    id="it10" autoSubmit="true">
+                        <f:validator binding="#{bindings.Factor.validator}"/>
+                        <af:convertNumber groupingUsed="false"
+                                          pattern="#{bindings.Factor.format}"/>
+                      </af:inputText>
+                    </f:facet>
+                    <af:panelFormLayout id="pfl2" rows="3">
+                      <af:panelLabelAndMessage label="High Performance Storage"
+                                               id="plam6">
+                        <af:outputText value="#{bindings.Factor.inputValue.value eq 0 ? bindings.GbHp.inputValue.value : bindings.GbHp.inputValue.value div bindings.Factor.inputValue.value}"
+                                       id="ot6" noWrap="true"
+                                       partialTriggers="it10 it3">
+                          <af:convertNumber groupingUsed="false"
+                                            pattern="#{bindings.GbHp.format}"/>
+                        </af:outputText>
+                      </af:panelLabelAndMessage>
+                      <af:panelLabelAndMessage label="%" id="plam2">
+                        <af:outputText value="#{bindings.PercentageHp.inputValue.value}"
+                                       id="ot5" partialTriggers="it9">
+                          <af:convertNumber groupingUsed="false"
+                                            pattern="#{bindings.PercentageHp.format}"/>
+                        </af:outputText>
+                      </af:panelLabelAndMessage>
+                      <af:panelLabelAndMessage label="Price per GB" id="plam1">
+                        <af:outputText value="#{bindings.PricePerGbGp.inputValue}"
+                                       id="ot10" partialTriggers="it6">
+                          <af:convertNumber groupingUsed="false"
+                                            pattern="#{bindings.PricePerGbGp.format}"/>
+                        </af:outputText>
+                      </af:panelLabelAndMessage>
+                      <af:panelGroupLayout id="pgl7" layout="horizontal"
+                                           partialTriggers="it10 it3 it9 it6">
+                        <af:outputLabel value="Total" id="ol5"/>
+                        <af:outputText value="#{bindings.Factor.inputValue.value eq 0 ? bindings.GbHp.inputValue.value * bindings.PricePerGbGp.inputValue.value :  bindings.GbHp.inputValue.value * bindings.PricePerGbGp.inputValue.value div bindings.Factor.inputValue.value}" id="ot14"/>
+                      </af:panelGroupLayout>
+                      <af:panelLabelAndMessage label="Modular Storage"
+                                               id="plam5">
+                        <af:outputText value="#{bindings.Factor.inputValue.value eq 0 ? bindings.GbMp.inputValue.value : bindings.GbMp.inputValue.value div bindings.Factor.inputValue.value}"
+                                       id="ot8" partialTriggers="it10 it8">
+                          <af:convertNumber groupingUsed="false"
+                                            pattern="#{bindings.GbMp.format}"/>
+                        </af:outputText>
+                      </af:panelLabelAndMessage>
+                      <af:panelLabelAndMessage label="%" id="plam8">
+                        <af:outputText value="#{bindings.PercentageMp.inputValue.value}"
+                                       id="ot11" partialTriggers="it2">
+                          <af:convertNumber groupingUsed="false"
+                                            pattern="#{bindings.PercentageMp.format}"/>
+                        </af:outputText>
+                      </af:panelLabelAndMessage>
+                      <af:panelLabelAndMessage label="Price per GB" id="plam4">
+                        <af:outputText value="#{bindings.PricePerGbMp.inputValue}"
+                                       id="ot13" partialTriggers="it7">
+                          <af:convertNumber groupingUsed="false"
+                                            pattern="#{bindings.PricePerGbMp.format}"/>
+                        </af:outputText>
+                      </af:panelLabelAndMessage>
+                      <af:panelGroupLayout id="pgl8" layout="horizontal">
+                        <af:outputLabel value="Total" id="ol6"/>
+                        <af:outputText value="#{bindings.Factor.inputValue.value eq 0 ? bindings.GbMp.inputValue.value * bindings.PricePerGbMp.inputValue.value :  bindings.GbMp.inputValue.value * bindings.PricePerGbMp.inputValue.value div bindings.Factor.inputValue.value}" id="ot15"
+                                       partialTriggers="it8 it2 it7 it10"/>
+                      </af:panelGroupLayout>
+                      <af:panelLabelAndMessage label="Read-Only Storage"
+                                               id="plam7">
+                        <af:outputText value="#{bindings.Factor.inputValue.value eq 0 ? bindings.GbRop.inputValue.value : bindings.GbRop.inputValue.value div bindings.Factor.inputValue.value}"
+                                       id="ot7" partialTriggers="it5 it10">
+                          <af:convertNumber groupingUsed="false"
+                                            pattern="#{bindings.GbRop.format}"/>
+                        </af:outputText>
+                      </af:panelLabelAndMessage>
+                      <af:panelLabelAndMessage label="%" id="plam3">
+                        <af:outputText value="#{bindings.PercentageRop.inputValue.value}"
+                                       id="ot9" partialTriggers="it4">
+                          <af:convertNumber groupingUsed="false"
+                                            pattern="#{bindings.PercentageRop.format}"/>
+                        </af:outputText>
+                      </af:panelLabelAndMessage>
+                      <af:panelLabelAndMessage label="Price per GB" id="plam9">
+                        <af:outputText value="#{bindings.PricePerGbRop.inputValue}"
+                                       id="ot12" partialTriggers="it1">
+                          <af:convertNumber groupingUsed="false"
+                                            pattern="#{bindings.PricePerGbRop.format}"/>
+                        </af:outputText>
+                      </af:panelLabelAndMessage>
+                      <af:panelGroupLayout id="pgl9" layout="horizontal">
+                        <af:outputLabel value="Total" id="ol7"/>
+                        <af:outputText value="#{bindings.Factor.inputValue.value eq 0 ? bindings.GbRop.inputValue.value * bindings.PricePerGbRop.inputValue.value :  bindings.GbRop.inputValue.value * bindings.PricePerGbRop.inputValue.value div bindings.Factor.inputValue.value}" id="ot16"
+                                       partialTriggers="it10 it1 it4 it5"/>
+                      </af:panelGroupLayout>
+                    </af:panelFormLayout>
+                    <af:separator id="s2"/>
+                    <af:panelGroupLayout id="pgl10" layout="horizontal"
+                                         partialTriggers="it3 it9 it6 it8 it2 it7 it5 it4 it1 it10">
+                      <af:outputLabel value="TOTAL" id="ol8"/>
+                      <af:outputText value="#{bindings.Factor.inputValue.value eq 0 ? ((bindings.GbHp.inputValue.value * bindings.PricePerGbGp.inputValue.value) + (bindings.GbMp.inputValue.value * bindings.PricePerGbMp.inputValue.value) + (bindings.GbRop.inputValue.value * bindings.PricePerGbRop.inputValue.value)) : (((bindings.GbHp.inputValue.value * bindings.PricePerGbGp.inputValue.value) + (bindings.GbMp.inputValue.value * bindings.PricePerGbMp.inputValue.value) + (bindings.GbRop.inputValue.value * bindings.PricePerGbRop.inputValue.value)) div bindings.Factor.inputValue.value)}" id="ot17"/>
+                    </af:panelGroupLayout>
+                  </af:panelBox>
+                  <af:panelBox text="Graph" id="pb3" inlineStyle="width:591px;">
+                    <f:facet name="toolbar"/>
+                    <dvt:barGraph id="barGraph1" subType="BAR_VERT_STACK">
+                      <dvt:background>
+                        <dvt:specialEffects/>
+                      </dvt:background>
+                      <dvt:graphPlotArea/>
+                      <dvt:seriesSet>
+                        <dvt:series/>
+                      </dvt:seriesSet>
+                      <dvt:o1Axis/>
+                      <dvt:y1Axis/>
+                      <dvt:legendArea automaticPlacement="AP_NEVER"/>
+                    </dvt:barGraph>
+                  </af:panelBox>
+                </af:panelGroupLayout>
+              </f:facet>
+            </af:decorativeBox>
+          </f:facet>
+        </af:decorativeBox>
+      </af:form>
+    </af:document>
+  </f:view>
+</jsp:root>
