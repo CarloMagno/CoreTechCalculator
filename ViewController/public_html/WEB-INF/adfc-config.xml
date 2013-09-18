@@ -5,4 +5,9 @@
     <managed-bean-class id="__4">ListenerBean</managed-bean-class>
     <managed-bean-scope id="__1">backingBean</managed-bean-scope>
   </managed-bean>
+  <managed-bean id="__8">
+    <managed-bean-name id="__6">Components</managed-bean-name>
+    <managed-bean-class id="__7">coretechcalc.view.backing.Components</managed-bean-class>
+    <managed-bean-scope id="__5">backingBean</managed-bean-scope>
+  </managed-bean>
 </adfc-config>

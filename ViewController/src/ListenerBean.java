@@ -16,7 +16,7 @@ public class ListenerBean {
 
     public void generateReportAndCommit(ActionEvent actionEvent) {
         FacesContext context = FacesContext.getCurrentInstance();
-        
+        System.out.println("CLICKED!");
         context.getApplication().evaluateExpressionGet(context, "#{bindings.Commit.execute}", Object.class);
         
 //        BindingContainer bindings = getBindings();

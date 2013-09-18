@@ -15,9 +15,10 @@
               <f:facet name="center">
                 <af:panelGroupLayout layout="scroll" id="pgl1" halign="center">
                   <af:panelGroupLayout id="pgl2">
-                    <af:image source="/oracle-logo-1.jpg" id="i1"/>
+                    <af:image source="/oracle-logo.gif" id="i1"
+                              inlineStyle="height:116px;"/>
                     <af:image source="/powered by Oracle Cloud - 01.png" id="i2"
-                              inlineStyle="width:236px; height:124px;"/>
+                              inlineStyle="width:211px; height:115px;"/>
                   </af:panelGroupLayout>
                   <af:panelBox text="Partitioning" id="pb1"
                                inlineStyle="width:595px;">
@@ -26,7 +27,7 @@
                         <af:commandButton actionListener="#{bindings.Commit.execute}"
                                           text="Commit"
                                           id="cb2"/>
-                        <af:commandButton actionListener="#{backingBeanScope.ListenerBean.generateReportAndCommit}"
+                        <af:commandButton actionListener="#{backingBeanScope.Components.generateReportAndCommit}"
                                           text="Report"
                                           id="cb1"/>
                       </af:group>
@@ -38,7 +39,8 @@
                                     columns="8"
                                     maximumLength="#{bindings.GbHp.hints.precision}"
                                     shortDesc="#{bindings.GbHp.hints.tooltip}"
-                                    id="it3" autoSubmit="true" immediate="true">
+                                    id="it3" autoSubmit="true" immediate="true"
+                                    binding="#{backingBeanScope.Components.it3}">
                         <f:validator binding="#{bindings.GbHp.validator}"/>
                         <af:convertNumber groupingUsed="false"
                                           pattern="#{bindings.GbHp.format}"/>
@@ -60,7 +62,8 @@
                                     columns="8"
                                     maximumLength="#{bindings.PricePerGbGp.hints.precision}"
                                     shortDesc="#{bindings.PricePerGbGp.hints.tooltip}"
-                                    id="it6" autoSubmit="true" immediate="true">
+                                    id="it6" autoSubmit="true" immediate="true"
+                                    binding="#{backingBeanScope.Components.it6}">
                         <f:validator binding="#{bindings.PricePerGbGp.validator}"/>
                         <af:convertNumber groupingUsed="false"
                                           pattern="#{bindings.PricePerGbGp.format}"
@@ -70,7 +73,11 @@
                                            partialTriggers="it9 it3 it6">
                         <af:outputLabel value="Total" id="ol1"/>
                         <af:outputText value="#{bindings.GbHp.inputValue.value * bindings.PricePerGbGp.inputValue.value}" id="ot1"
-                                       partialTriggers="it6 it9 it3"/>
+                                       partialTriggers="it6 it9 it3"
+                                       binding="#{backingBeanScope.Components.ot1}"
+                                       converter="oracle.adf.rich.Number">
+                                <af:convertNumber maxFractionDigits="2" locale="es-ES" />
+                        </af:outputText>
                       </af:panelGroupLayout>
                       <af:inputText value="#{bindings.GbMp.inputValue}"
                                     label="Modular Storage"
@@ -78,7 +85,8 @@
                                     columns="8"
                                     maximumLength="#{bindings.GbMp.hints.precision}"
                                     shortDesc="#{bindings.GbMp.hints.tooltip}"
-                                    id="it8" autoSubmit="true" immediate="true">
+                                    id="it8" autoSubmit="true" immediate="true"
+                                    binding="#{backingBeanScope.Components.it8}">
                         <f:validator binding="#{bindings.GbMp.validator}"/>
                         <af:convertNumber groupingUsed="false"
                                           pattern="#{bindings.GbMp.format}"/>
@@ -109,7 +117,11 @@
                                            partialTriggers="it8 it2 it7">
                         <af:outputLabel value="Total" id="ol2"/>
                         <af:outputText value="#{bindings.GbMp.inputValue.value * bindings.PricePerGbMp.inputValue.value}" id="ot2"
-                                       partialTriggers="it7 it2 it8"/>
+                                       partialTriggers="it7 it2 it8"
+                                       binding="#{backingBeanScope.Components.ot2}"
+                                       converter="oracle.adf.rich.Number">
+                                <af:convertNumber maxFractionDigits="2" locale="es-ES" />
+                        </af:outputText>
                       </af:panelGroupLayout>
                       <af:inputText value="#{bindings.GbRop.inputValue}"
                                     label="Read-Only Storage"
@@ -117,7 +129,8 @@
                                     columns="8"
                                     maximumLength="#{bindings.GbRop.hints.precision}"
                                     shortDesc="#{bindings.GbRop.hints.tooltip}"
-                                    id="it5" autoSubmit="true" immediate="true">
+                                    id="it5" autoSubmit="true" immediate="true"
+                                    binding="#{backingBeanScope.Components.it5}">
                         <f:validator binding="#{bindings.GbRop.validator}"/>
                         <af:convertNumber groupingUsed="false"
                                           pattern="#{bindings.GbRop.format}"/>
@@ -148,7 +161,11 @@
                                            partialTriggers="it5 it4 it1">
                         <af:outputLabel value="Total" id="ol3"/>
                         <af:outputText value="#{bindings.GbRop.inputValue.value * bindings.PricePerGbRop.inputValue.value}" id="ot3"
-                                       partialTriggers="it1 it4 it5"/>
+                                       partialTriggers="it1 it4 it5"
+                                       binding="#{backingBeanScope.Components.ot3}"
+                                       converter="oracle.adf.rich.Number">
+                                <af:convertNumber maxFractionDigits="2" locale="es-ES" />
+                        </af:outputText>
                       </af:panelGroupLayout>
                     </af:panelFormLayout>
                     <af:separator id="s1"/>
@@ -157,7 +174,8 @@
                                          partialTriggers="it3 it9 it6 it8 it2 it7 it5 it4 it1">
                       <af:outputLabel value="TOTAL" id="ol4"/>
                       <af:outputText value="#{(bindings.GbHp.inputValue.value * bindings.PricePerGbGp.inputValue.value) + (bindings.GbMp.inputValue.value * bindings.PricePerGbMp.inputValue.value) + (bindings.GbRop.inputValue.value * bindings.PricePerGbRop.inputValue.value)}" id="ot4"
-                                     partialTriggers="it3 it9 it6 it8 it2 it7 it5 it4 it1"/>
+                                     partialTriggers="it3 it9 it6 it8 it2 it7 it5 it4 it1"
+                                     converter="oracle.adf.rich.Number"/>
                     </af:panelGroupLayout>
                   </af:panelBox>
                   <af:panelBox text="Advance Compression" id="pb2"
@@ -169,7 +187,8 @@
                                     columns="8"
                                     maximumLength="#{bindings.Factor.hints.precision}"
                                     shortDesc="#{bindings.Factor.hints.tooltip}"
-                                    id="it10" autoSubmit="true">
+                                    id="it10" autoSubmit="true"
+                                    binding="#{backingBeanScope.Components.it10}">
                         <f:validator binding="#{bindings.Factor.validator}"/>
                         <af:convertNumber groupingUsed="false"
                                           pattern="#{bindings.Factor.format}"/>
@@ -180,9 +199,11 @@
                                                id="plam6">
                         <af:outputText value="#{bindings.Factor.inputValue.value eq 0 ? bindings.GbHp.inputValue.value : bindings.GbHp.inputValue.value div bindings.Factor.inputValue.value}"
                                        id="ot6" noWrap="true"
-                                       partialTriggers="it10 it3">
+                                       partialTriggers="it10 it3"
+                                       converter="oracle.adf.rich.Number">
                           <af:convertNumber groupingUsed="false"
-                                            pattern="#{bindings.GbHp.format}"/>
+                                            pattern="#{bindings.GbHp.format}"
+                                            maxFractionDigits="2" locale="es-ES"/>
                         </af:outputText>
                       </af:panelLabelAndMessage>
                       <af:panelLabelAndMessage label="%" id="plam2">
@@ -202,14 +223,19 @@
                       <af:panelGroupLayout id="pgl7" layout="horizontal"
                                            partialTriggers="it10 it3 it9 it6">
                         <af:outputLabel value="Total" id="ol5"/>
-                        <af:outputText value="#{bindings.Factor.inputValue.value eq 0 ? bindings.GbHp.inputValue.value * bindings.PricePerGbGp.inputValue.value :  bindings.GbHp.inputValue.value * bindings.PricePerGbGp.inputValue.value div bindings.Factor.inputValue.value}" id="ot14"/>
+                        <af:outputText value="#{bindings.Factor.inputValue.value eq 0 ? bindings.GbHp.inputValue.value * bindings.PricePerGbGp.inputValue.value :  bindings.GbHp.inputValue.value * bindings.PricePerGbGp.inputValue.value div bindings.Factor.inputValue.value}" id="ot14"
+                                       converter="oracle.adf.rich.Number">
+                                <af:convertNumber maxFractionDigits="2" locale="es-ES" />            
+                        </af:outputText>
                       </af:panelGroupLayout>
                       <af:panelLabelAndMessage label="Modular Storage"
                                                id="plam5">
                         <af:outputText value="#{bindings.Factor.inputValue.value eq 0 ? bindings.GbMp.inputValue.value : bindings.GbMp.inputValue.value div bindings.Factor.inputValue.value}"
-                                       id="ot8" partialTriggers="it10 it8">
+                                       id="ot8" partialTriggers="it10 it8"
+                                       converter="oracle.adf.rich.Number">
                           <af:convertNumber groupingUsed="false"
-                                            pattern="#{bindings.GbMp.format}"/>
+                                            pattern="#{bindings.GbMp.format}"
+                                            maxFractionDigits="2" locale="es-ES"/>
                         </af:outputText>
                       </af:panelLabelAndMessage>
                       <af:panelLabelAndMessage label="%" id="plam8">
@@ -229,14 +255,19 @@
                       <af:panelGroupLayout id="pgl8" layout="horizontal">
                         <af:outputLabel value="Total" id="ol6"/>
                         <af:outputText value="#{bindings.Factor.inputValue.value eq 0 ? bindings.GbMp.inputValue.value * bindings.PricePerGbMp.inputValue.value :  bindings.GbMp.inputValue.value * bindings.PricePerGbMp.inputValue.value div bindings.Factor.inputValue.value}" id="ot15"
-                                       partialTriggers="it8 it2 it7 it10"/>
+                                       partialTriggers="it8 it2 it7 it10"
+                                       converter="oracle.adf.rich.Number">
+                            <af:convertNumber maxFractionDigits="2" locale="es-ES" />               
+                        </af:outputText>
                       </af:panelGroupLayout>
                       <af:panelLabelAndMessage label="Read-Only Storage"
                                                id="plam7">
                         <af:outputText value="#{bindings.Factor.inputValue.value eq 0 ? bindings.GbRop.inputValue.value : bindings.GbRop.inputValue.value div bindings.Factor.inputValue.value}"
-                                       id="ot7" partialTriggers="it5 it10">
+                                       id="ot7" partialTriggers="it5 it10"
+                                       converter="oracle.adf.rich.Number">
                           <af:convertNumber groupingUsed="false"
-                                            pattern="#{bindings.GbRop.format}"/>
+                                            pattern="#{bindings.GbRop.format}"
+                                            maxFractionDigits="2" locale="es-ES"/>
                         </af:outputText>
                       </af:panelLabelAndMessage>
                       <af:panelLabelAndMessage label="%" id="plam3">
@@ -256,30 +287,38 @@
                       <af:panelGroupLayout id="pgl9" layout="horizontal">
                         <af:outputLabel value="Total" id="ol7"/>
                         <af:outputText value="#{bindings.Factor.inputValue.value eq 0 ? bindings.GbRop.inputValue.value * bindings.PricePerGbRop.inputValue.value :  bindings.GbRop.inputValue.value * bindings.PricePerGbRop.inputValue.value div bindings.Factor.inputValue.value}" id="ot16"
-                                       partialTriggers="it10 it1 it4 it5"/>
+                                       partialTriggers="it10 it1 it4 it5"
+                                       converter="oracle.adf.rich.Number">
+                                    <af:convertNumber maxFractionDigits="2" locale="es-ES" />
+                        </af:outputText>
                       </af:panelGroupLayout>
                     </af:panelFormLayout>
                     <af:separator id="s2"/>
                     <af:panelGroupLayout id="pgl10" layout="horizontal"
                                          partialTriggers="it3 it9 it6 it8 it2 it7 it5 it4 it1 it10">
                       <af:outputLabel value="TOTAL" id="ol8"/>
-                      <af:outputText value="#{bindings.Factor.inputValue.value eq 0 ? ((bindings.GbHp.inputValue.value * bindings.PricePerGbGp.inputValue.value) + (bindings.GbMp.inputValue.value * bindings.PricePerGbMp.inputValue.value) + (bindings.GbRop.inputValue.value * bindings.PricePerGbRop.inputValue.value)) : (((bindings.GbHp.inputValue.value * bindings.PricePerGbGp.inputValue.value) + (bindings.GbMp.inputValue.value * bindings.PricePerGbMp.inputValue.value) + (bindings.GbRop.inputValue.value * bindings.PricePerGbRop.inputValue.value)) div bindings.Factor.inputValue.value)}" id="ot17"/>
+                      <af:outputText value="#{bindings.Factor.inputValue.value eq 0 ? ((bindings.GbHp.inputValue.value * bindings.PricePerGbGp.inputValue.value) + (bindings.GbMp.inputValue.value * bindings.PricePerGbMp.inputValue.value) + (bindings.GbRop.inputValue.value * bindings.PricePerGbRop.inputValue.value)) : (((bindings.GbHp.inputValue.value * bindings.PricePerGbGp.inputValue.value) + (bindings.GbMp.inputValue.value * bindings.PricePerGbMp.inputValue.value) + (bindings.GbRop.inputValue.value * bindings.PricePerGbRop.inputValue.value)) div bindings.Factor.inputValue.value)}" id="ot17"
+                                     converter="oracle.adf.rich.Number"/>
                     </af:panelGroupLayout>
                   </af:panelBox>
                   <af:panelBox text="Graph" id="pb3" inlineStyle="width:591px;">
                     <f:facet name="toolbar"/>
-                    <dvt:barGraph id="barGraph1" subType="BAR_VERT_STACK">
-                      <dvt:background>
-                        <dvt:specialEffects/>
-                      </dvt:background>
-                      <dvt:graphPlotArea/>
-                      <dvt:seriesSet>
-                        <dvt:series/>
-                      </dvt:seriesSet>
-                      <dvt:o1Axis/>
-                      <dvt:y1Axis/>
-                      <dvt:legendArea automaticPlacement="AP_NEVER"/>
-                    </dvt:barGraph>
+                    <af:panelGroupLayout id="pgl11"
+                                         partialTriggers="it10 it3 it6 it8 it7 it5 it1">
+                      <dvt:barGraph id="barGraph1" subType="BAR_VERT_STACK"
+                                    tabularData="#{backingBeanScope.Components.tabularData}">
+                        <dvt:background>
+                          <dvt:specialEffects/>
+                        </dvt:background>
+                        <dvt:graphPlotArea/>
+                        <dvt:seriesSet>
+                          <dvt:series/>
+                        </dvt:seriesSet>
+                        <dvt:o1Axis/>
+                        <dvt:y1Axis/>
+                        <dvt:legendArea automaticPlacement="AP_NEVER"/>
+                      </dvt:barGraph>
+                    </af:panelGroupLayout>
                   </af:panelBox>
                 </af:panelGroupLayout>
               </f:facet>
