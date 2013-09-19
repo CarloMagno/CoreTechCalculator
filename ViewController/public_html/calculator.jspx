@@ -16,8 +16,8 @@
                 <af:panelGroupLayout layout="scroll" id="pgl1" halign="center">
                   <af:panelGroupLayout id="pgl2">
                     <af:image source="/oracle-logo.gif" id="i1"
-                              inlineStyle="height:116px;"/>
-                    <af:image source="/powered by Oracle Cloud - 01.png" id="i2"
+                              inlineStyle="height:117px;"/>
+                    <af:image source="/transparentCloud.gif" id="i2"
                               inlineStyle="width:211px; height:115px;"/>
                   </af:panelGroupLayout>
                   <af:panelBox text="Partitioning" id="pb1"
@@ -26,7 +26,7 @@
                       <af:group id="g1">
                         <af:commandButton actionListener="#{bindings.Commit.execute}"
                                           text="Commit"
-                                          id="cb2"/>
+                                          id="cb2" rendered="false"/>
                         <af:commandButton actionListener="#{backingBeanScope.Components.generateReportAndCommit}"
                                           text="Report"
                                           id="cb1"/>

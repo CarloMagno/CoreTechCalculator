@@ -33,6 +33,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpServletResponse;
 
+import oracle.adf.model.BindingContext;
 import oracle.adf.model.OperationBinding;
 import oracle.adf.view.rich.component.rich.input.RichInputText;
 import oracle.adf.view.rich.component.rich.output.RichOutputText;
@@ -52,11 +53,10 @@ public class Components {
     public Components() {
     }
 
-    public static Object get(String expr) {
-        FacesContext ctx = FacesContext.getCurrentInstance();
-        return ctx.getApplication().evaluateExpressionGet(ctx, expr, Object.class);
-    }
-
+    /**
+     * Action associated to the "Report" button.
+     * @param actionEvent
+     */
     public void generateReportAndCommit(ActionEvent actionEvent) {
         FacesContext context = FacesContext.getCurrentInstance();
         
@@ -71,13 +71,19 @@ public class Components {
         deleteCsvFile(fileName);
 
         // Commiting.
-/*
         System.out.println("Commiting...");
-        context.getApplication().evaluateExpressionGet(context, "#{bindings.Commit.execute}", Object.class);
+        BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
+        OperationBinding operationBinding = (OperationBinding)bindings.getOperationBinding("Commit");
+        operationBinding.execute();
+        //context.getApplication().evaluateExpressionGet(context, "#{bindings.Commit.execute}", Object.class);
         System.out.println("...Commited!");
-*/
+        
     }
     
+    /**
+     * This method creates the download stream to the user.
+     * @param filePath
+     */
     private void downloadFile(String filePath) {
         FacesContext context = FacesContext.getCurrentInstance();
         
@@ -88,14 +94,7 @@ public class Components {
             File file = new File(filePath);
             int length = 0;
             ServletOutputStream outStream = response.getOutputStream();
-            //ServletContext sContext = getServletConfig().getServletContext();
-            //String mimetype = sContext.getMimeType(filePath);
-    
-            // sets response content type
-            //if (mimetype == null) {
-            //    mimetype = "application/octet-stream";
-            //}
-            //response.setContentType(mimetype);
+            
             response.setContentLength((int)file.length());
             String fileName = (new File(filePath)).getName();
     
@@ -119,6 +118,10 @@ public class Components {
         }
     }
     
+    /**
+     * Generate a .csv file with the customer data.
+     * @param fileName
+     */
     private void generateCsvFile(String fileName) {
         try {
             FileWriter writer = new FileWriter(fileName);
@@ -167,6 +170,10 @@ public class Components {
         file.delete();
     }
     
+    /**
+     * This method return the list of data which the graph uses.
+     * @return
+     */
     public List getTabularData() {
         System.out.println("Retrieving data graph...");
         BigDecimal hpGbs = new BigDecimal(it3.getValue().toString());
