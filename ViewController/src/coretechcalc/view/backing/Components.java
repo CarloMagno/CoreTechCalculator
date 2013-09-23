@@ -1,11 +1,16 @@
 package coretechcalc.view.backing;
 
+import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
+
+import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 
 import java.io.IOException;
+
+import java.io.InputStream;
 
 import java.math.BigDecimal;
 
@@ -64,11 +69,12 @@ public class Components {
         String fileName = null;
         synchronized(this){
             fileName = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date())+".csv";
-            generateCsvFile(fileName);
+            downloadFileString(generateCsvString(), fileName);
+            // --- generateCsvFile(fileName);
         }
-
-        downloadFile(fileName);
-        deleteCsvFile(fileName);
+        
+        // --- downloadFile(fileName);
+        // --- deleteCsvFile(fileName);
 
         // Commiting.
         System.out.println("Commiting...");
@@ -104,7 +110,7 @@ public class Components {
     
             byte[] byteBuffer = new byte[4096];
             DataInputStream in = new DataInputStream(new FileInputStream(file));
-    
+            
             // reads the file's bytes and writes them to the response stream
             while ((in != null) && ((length = in.read(byteBuffer)) != -1)) {
                 outStream.write(byteBuffer, 0, length);
@@ -118,6 +124,64 @@ public class Components {
         }
     }
     
+    private void downloadFileString(StringBuffer file, String fileName) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        
+        try{
+            HttpServletResponse response = (HttpServletResponse)context.getExternalContext().getResponse();
+            ServletOutputStream outStream = response.getOutputStream();
+            
+            byte[] outputByte = file.toString().getBytes("UTF-8");
+            
+            response.setContentType("application/octet-stream");
+            response.setHeader("Content-Disposition","attachment; filename=\""+fileName+"\"");
+            outStream.write(outputByte, 0, file.length());
+            
+            outStream.close();
+            response.flushBuffer();
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    private StringBuffer generateCsvString() {
+        
+            StringBuffer csv = new StringBuffer();
+            csv.append("STORAGE PLAN,TYPE OF STORAGE,GB,PRICE");
+            csv.append(System.getProperty("line.separator"));
+            BigDecimal gbsOnlyHP = new BigDecimal(it3.getValue().toString()).add(new BigDecimal(it5.getValue().toString()).add(new BigDecimal(it8.getValue().toString())));
+            csv.append("ONLY HIGH PERFORMANCE STORAGE,,"+gbsOnlyHP.doubleValue()+","+gbsOnlyHP.multiply(new BigDecimal(it6.getValue().toString())));
+            csv.append(System.getProperty("line.separator"));
+            
+            csv.append("PARTITIONING");
+            csv.append(System.getProperty("line.separator"));
+            csv.append(",");
+            csv.append("High Performance Storage,"+new BigDecimal(it3.getValue().toString()).doubleValue()+","+new BigDecimal(ot1.getValue().toString()).doubleValue());
+            csv.append(System.getProperty("line.separator"));
+            csv.append(",");
+            csv.append("Modular Storage,"+new BigDecimal(it8.getValue().toString()).doubleValue()+","+new BigDecimal(ot2.getValue().toString()).doubleValue());
+            csv.append(System.getProperty("line.separator"));
+            csv.append(",");
+            csv.append("Read-Only Storage,"+new BigDecimal(it5.getValue().toString()).doubleValue()+","+new BigDecimal(ot3.getValue().toString()).doubleValue());
+            csv.append(System.getProperty("line.separator"));
+
+            csv.append("PARTITIONING + ADVANCE COMPRESSION FACTOR "+new BigDecimal(it10.getValue().toString()).doubleValue());
+            csv.append(System.getProperty("line.separator"));
+            csv.append(",");
+            csv.append("High Performance Storage,"+new BigDecimal(it3.getValue().toString()).divide(new BigDecimal(it10.getValue().toString()), 2, RoundingMode.HALF_UP).doubleValue()+","+new BigDecimal(ot1.getValue().toString()).divide(new BigDecimal(it10.getValue().toString()), 2, RoundingMode.HALF_UP).doubleValue());
+            csv.append(System.getProperty("line.separator"));
+            csv.append(",");
+            csv.append("Modular Storage,"+new BigDecimal(it8.getValue().toString()).divide(new BigDecimal(it10.getValue().toString()), 2, RoundingMode.HALF_UP).doubleValue()+","+new BigDecimal(ot2.getValue().toString()).divide(new BigDecimal(it10.getValue().toString()), 2, RoundingMode.HALF_UP).doubleValue());
+            csv.append(System.getProperty("line.separator"));
+            csv.append(",");
+            csv.append("Read-Only Storage,"+new BigDecimal(it5.getValue().toString()).divide(new BigDecimal(it10.getValue().toString()), 2, RoundingMode.HALF_UP).doubleValue()+","+new BigDecimal(ot3.getValue().toString()).divide(new BigDecimal(it10.getValue().toString()), 2, RoundingMode.HALF_UP).doubleValue());
+            csv.append(System.getProperty("line.separator"));
+            
+            return csv;
+        
+    }
+    
     /**
      * Generate a .csv file with the customer data.
      * @param fileName
@@ -125,7 +189,6 @@ public class Components {
     private void generateCsvFile(String fileName) {
         try {
             FileWriter writer = new FileWriter(fileName);
-
             writer.append("STORAGE PLAN,TYPE OF STORAGE,GB,PRICE");
             writer.append(System.getProperty("line.separator"));
             BigDecimal gbsOnlyHP = new BigDecimal(it3.getValue().toString()).add(new BigDecimal(it5.getValue().toString()).add(new BigDecimal(it8.getValue().toString())));
