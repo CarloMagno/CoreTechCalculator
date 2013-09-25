@@ -10,7 +10,8 @@
   DBObjectName="USERINFO"
   AliasName="Userinfo"
   BindingStyle="OracleName"
-  UseGlueCode="false">
+  UseGlueCode="false"
+  xmlns:validation="http://xmlns.oracle.com/adfm/validation">
   <DesignTime>
     <Attr Name="_codeGenFlag2" Value="Access"/>
     <AttrArray Name="_publishEvents"/>
@@ -136,6 +137,14 @@
     <DesignTime>
       <Attr Name="_DisplaySize" Value="39"/>
     </DesignTime>
+    <validation:CompareValidationBean
+      Name="Factor_Rule_0"
+      OnAttribute="Factor"
+      OperandType="LITERAL"
+      Inverse="false"
+      CompareType="GREATERTHAN"
+      CompareValue="0"
+      ResId="coretechcalc.model.Userinfo.Factor_Rule_0"/>
   </Attribute>
   <Attribute
     Name="RowID"
@@ -146,4 +155,8 @@
     ColumnType="ROWID"
     TableName="USERINFO"
     PrimaryKey="true"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="coretechcalc.model.ModelBundle"/>
+  </ResourceBundle>
 </Entity>

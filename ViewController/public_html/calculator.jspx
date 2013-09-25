@@ -200,6 +200,7 @@
                         <af:outputText value="#{bindings.Factor.inputValue.value eq 0 ? bindings.GbHp.inputValue.value : bindings.GbHp.inputValue.value div bindings.Factor.inputValue.value}"
                                        id="ot6" noWrap="true"
                                        partialTriggers="it10 it3"
+                                       rendered="#{bindings.Factor.inputValue.value gt 0}"
                                        converter="oracle.adf.rich.Number">
                           <af:convertNumber groupingUsed="false"
                                             pattern="#{bindings.GbHp.format}"
@@ -221,7 +222,8 @@
                         </af:outputText>
                       </af:panelLabelAndMessage>
                       <af:panelGroupLayout id="pgl7" layout="horizontal"
-                                           partialTriggers="it10 it3 it9 it6">
+                                           partialTriggers="it10 it3 it9 it6"
+                                           rendered="#{bindings.Factor.inputValue.value gt 0}">
                         <af:outputLabel value="Total" id="ol5"/>
                         <af:outputText value="#{bindings.Factor.inputValue.value eq 0 ? bindings.GbHp.inputValue.value * bindings.PricePerGbGp.inputValue.value :  bindings.GbHp.inputValue.value * bindings.PricePerGbGp.inputValue.value div bindings.Factor.inputValue.value}" id="ot14"
                                        converter="oracle.adf.rich.Number">
@@ -232,6 +234,7 @@
                                                id="plam5">
                         <af:outputText value="#{bindings.Factor.inputValue.value eq 0 ? bindings.GbMp.inputValue.value : bindings.GbMp.inputValue.value div bindings.Factor.inputValue.value}"
                                        id="ot8" partialTriggers="it10 it8"
+                                       rendered="#{bindings.Factor.inputValue.value gt 0}"
                                        converter="oracle.adf.rich.Number">
                           <af:convertNumber groupingUsed="false"
                                             pattern="#{bindings.GbMp.format}"
@@ -256,6 +259,7 @@
                         <af:outputLabel value="Total" id="ol6"/>
                         <af:outputText value="#{bindings.Factor.inputValue.value eq 0 ? bindings.GbMp.inputValue.value * bindings.PricePerGbMp.inputValue.value :  bindings.GbMp.inputValue.value * bindings.PricePerGbMp.inputValue.value div bindings.Factor.inputValue.value}" id="ot15"
                                        partialTriggers="it8 it2 it7 it10"
+                                       rendered="#{bindings.Factor.inputValue.value gt 0}"
                                        converter="oracle.adf.rich.Number">
                             <af:convertNumber maxFractionDigits="2" locale="es-ES" />               
                         </af:outputText>
@@ -264,6 +268,7 @@
                                                id="plam7">
                         <af:outputText value="#{bindings.Factor.inputValue.value eq 0 ? bindings.GbRop.inputValue.value : bindings.GbRop.inputValue.value div bindings.Factor.inputValue.value}"
                                        id="ot7" partialTriggers="it5 it10"
+                                       rendered="#{bindings.Factor.inputValue.value gt 0}"
                                        converter="oracle.adf.rich.Number">
                           <af:convertNumber groupingUsed="false"
                                             pattern="#{bindings.GbRop.format}"
@@ -284,7 +289,8 @@
                                             pattern="#{bindings.PricePerGbRop.format}"/>
                         </af:outputText>
                       </af:panelLabelAndMessage>
-                      <af:panelGroupLayout id="pgl9" layout="horizontal">
+                      <af:panelGroupLayout id="pgl9" layout="horizontal"
+                                        rendered="#{bindings.Factor.inputValue.value gt 0}">
                         <af:outputLabel value="Total" id="ol7"/>
                         <af:outputText value="#{bindings.Factor.inputValue.value eq 0 ? bindings.GbRop.inputValue.value * bindings.PricePerGbRop.inputValue.value :  bindings.GbRop.inputValue.value * bindings.PricePerGbRop.inputValue.value div bindings.Factor.inputValue.value}" id="ot16"
                                        partialTriggers="it10 it1 it4 it5"
@@ -295,7 +301,8 @@
                     </af:panelFormLayout>
                     <af:separator id="s2"/>
                     <af:panelGroupLayout id="pgl10" layout="horizontal"
-                                         partialTriggers="it3 it9 it6 it8 it2 it7 it5 it4 it1 it10">
+                                         partialTriggers="it3 it9 it6 it8 it2 it7 it5 it4 it1 it10"
+                                         rendered="#{bindings.Factor.inputValue.value gt 0}">
                       <af:outputLabel value="TOTAL" id="ol8"/>
                       <af:outputText value="#{bindings.Factor.inputValue.value eq 0 ? ((bindings.GbHp.inputValue.value * bindings.PricePerGbGp.inputValue.value) + (bindings.GbMp.inputValue.value * bindings.PricePerGbMp.inputValue.value) + (bindings.GbRop.inputValue.value * bindings.PricePerGbRop.inputValue.value)) : (((bindings.GbHp.inputValue.value * bindings.PricePerGbGp.inputValue.value) + (bindings.GbMp.inputValue.value * bindings.PricePerGbMp.inputValue.value) + (bindings.GbRop.inputValue.value * bindings.PricePerGbRop.inputValue.value)) div bindings.Factor.inputValue.value)}" id="ot17"
                                      converter="oracle.adf.rich.Number"/>
@@ -304,7 +311,8 @@
                   <af:panelBox text="Graph" id="pb3" inlineStyle="width:591px;">
                     <f:facet name="toolbar"/>
                     <af:panelGroupLayout id="pgl11"
-                                         partialTriggers="it10 it3 it6 it8 it7 it5 it1">
+                                         partialTriggers="it10 it3 it6 it8 it7 it5 it1"
+                                         rendered="#{bindings.Factor.inputValue.value gt 0}">
                       <dvt:barGraph id="barGraph1" subType="BAR_VERT_STACK"
                                     tabularData="#{backingBeanScope.Components.tabularData}">
                         <dvt:background>
